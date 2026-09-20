@@ -1,6 +1,0 @@
-import { Repeat2 } from 'lucide-react'
-import { Card, PageHeader } from '../components/ui'
-import { useFinance } from '../context/FinanceContext'
-import { money } from '../utils/money'
-
-export function RecurringPage(){const{transactions,settings}=useFinance();const recurring=transactions.filter(t=>t.recurring&&t.type==='expense');const total=recurring.reduce((a,b)=>a+b.amount,0);return <><PageHeader title="Gastos fijos" subtitle="Tus compromisos recurrentes del mes"/><div className="grid gap-4 md:grid-cols-3"><Card><div className="flex items-center gap-2 text-slate-500"><Repeat2 size={17}/><span className="text-sm font-semibold">Total recurrente</span></div><div className="mt-2 text-3xl font-black">{money(total,settings.currency)}</div><p className="mt-1 text-xs text-slate-500">Según movimientos marcados como recurrentes.</p></Card></div><Card className="mt-4"><div className="divide-y divide-slate-100 dark:divide-slate-800">{recurring.length?recurring.map(t=><div key={t.id} className="flex items-center justify-between py-3"><div><div className="font-semibold">{t.description}</div><div className="text-xs text-slate-500">{t.category}</div></div><div className="font-bold">{money(t.amount,settings.currency)}</div></div>):<div className="py-10 text-center text-sm text-slate-500">Todavía no hay gastos recurrentes.</div>}</div></Card></>}
